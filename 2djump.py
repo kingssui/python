@@ -2,7 +2,8 @@ import pygame
 width=800
 heigh=400
 gamescreen=pygame.display.set_mode((width,heigh))
-player=pygame.Rect(100,200,50,20)
+player=pygame.Rect(100,100,50,50)
+pltform=pygame.Rect(100,340,50,20)
 px=0
 py=350
 jumptime=0
@@ -13,6 +14,7 @@ while True :
     
     gamescreen.fill('black')
     pygame.draw.rect(gamescreen,'red',player)
+    pygame.draw.rect(gamescreen,'blue',pltform)
     pygame.display.flip()
     buttons=pygame.event.get()
     for button in buttons:
@@ -35,8 +37,12 @@ while True :
         jumptime=0
         isjump=False
     if isjump==True:
-        speed=1*(1-(jumptime/5))
+        speed=3*(1-(jumptime/5))
         player.y-=speed
     #falliny clown
-    if isjump==False and player.y<375:
+    if isjump==False and player.y<350:
         player.y+=5
+    #check if we the pltform
+    if player.colliderect(pltform):
+        print('pltform')
+        isjump=False
